@@ -37,6 +37,7 @@ src/
 │   ├── SearchStatus.tsx  # Result count / no-results / error states
 │   ├── RecipeGrid.tsx    # Responsive recipe card grid
 │   ├── RecipeCard.tsx    # Individual recipe card
+│   ├── Modal.tsx         # Generic modal (backdrop, scroll-lock, Escape, backdrop-click)
 │   ├── RecipeModal.tsx   # Full recipe detail modal (pure UI)
 │   └── ShoppingListModal.tsx  # Shopping list modal (pure UI)
 ├── hooks/
