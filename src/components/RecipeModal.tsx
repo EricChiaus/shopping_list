@@ -1,13 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Meal } from "@/types";
-import { getIngredients } from "@/lib/api";
-import {
-  addMealToShoppingList,
-  isMealInShoppingList,
-} from "@/lib/shoppingList";
+import { useRecipeModal } from "@/hooks/useRecipeModal";
 
 interface RecipeModalProps {
   meal: Meal | null;
@@ -20,38 +15,15 @@ export default function RecipeModal({
   onClose,
   onShoppingListChange,
 }: RecipeModalProps) {
-  const overlayRef = useRef<HTMLDivElement>(null);
-  const [added, setAdded] = useState(false);
-
-  useEffect(() => {
-    if (meal) {
-      setAdded(isMealInShoppingList(meal.idMeal));
-    }
-  }, [meal]);
-
-  // Close on Escape key
-  useEffect(() => {
-    function handleKey(e: KeyboardEvent) {
-      if (e.key === "Escape") onClose();
-    }
-    window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
-  }, [onClose]);
+  const {
+    overlayRef,
+    added,
+    ingredients,
+    handleAddToShoppingList,
+    handleOverlayClick,
+  } = useRecipeModal({ meal, onClose, onShoppingListChange });
 
   if (!meal) return null;
-
-  const ingredients = getIngredients(meal);
-
-  function handleAddToShoppingList() {
-    if (!meal) return;
-    addMealToShoppingList(meal);
-    setAdded(true);
-    onShoppingListChange();
-  }
-
-  function handleOverlayClick(e: React.MouseEvent<HTMLDivElement>) {
-    if (e.target === overlayRef.current) onClose();
-  }
 
   return (
     <div
