@@ -35,13 +35,7 @@ export default function RecipeModal({ meal, onClose }: RecipeModalProps) {
   useEffect(() => {
     if (meal) {
       setAdded(isMealInShoppingList(meal.idMeal));
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
     }
-    return () => {
-      document.body.style.overflow = "";
-    };
   }, [meal]);
 
   // Close on Escape key
@@ -75,7 +69,7 @@ export default function RecipeModal({ meal, onClose }: RecipeModalProps) {
       onClick={handleOverlayClick}
       className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6"
     >
-      <div className="bg-white shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto relative">
+      <div className="bg-white shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto overscroll-contain relative">
         {/* Close button */}
         <button
           onClick={onClose}
