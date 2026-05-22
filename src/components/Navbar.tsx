@@ -1,34 +1,18 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { getShoppingList } from "@/lib/shoppingList";
-
 interface NavbarProps {
   onShowShoppingList: () => void;
   onSurpriseMe: () => void;
   onGoHome: () => void;
+  itemCount: number;
 }
 
 export default function Navbar({
   onShowShoppingList,
   onSurpriseMe,
   onGoHome,
+  itemCount,
 }: NavbarProps) {
-  const [itemCount, setItemCount] = useState(0);
-
-  // Refresh badge count whenever the shopping list is updated
-  useEffect(() => {
-    function updateCount() {
-      const meals = new Set(getShoppingList().map((i) => i.mealId));
-      setItemCount(meals.size);
-    }
-    updateCount();
-    window.addEventListener("shopping-list-updated", updateCount);
-    return () => {
-      window.removeEventListener("shopping-list-updated", updateCount);
-    };
-  }, []);
-
   return (
     <nav
       aria-label="Main navigation"

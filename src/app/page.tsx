@@ -19,6 +19,8 @@ export default function HomePage() {
     setSelectedMeal,
     shoppingListOpen,
     setShoppingListOpen,
+    shoppingListCount,
+    refreshShoppingListCount,
     handleSearch,
     handleSurpriseMe,
     handleGoHome,
@@ -30,6 +32,7 @@ export default function HomePage() {
         onShowShoppingList={() => setShoppingListOpen(true)}
         onSurpriseMe={handleSurpriseMe}
         onGoHome={handleGoHome}
+        itemCount={shoppingListCount}
       />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -65,10 +68,15 @@ export default function HomePage() {
         )}
       </main>
 
-      <RecipeModal meal={selectedMeal} onClose={() => setSelectedMeal(null)} />
+      <RecipeModal
+        meal={selectedMeal}
+        onClose={() => setSelectedMeal(null)}
+        onShoppingListChange={refreshShoppingListCount}
+      />
       <ShoppingListModal
         open={shoppingListOpen}
         onClose={() => setShoppingListOpen(false)}
+        onShoppingListChange={refreshShoppingListCount}
       />
     </div>
   );

@@ -3,8 +3,13 @@
 import { useState, useCallback } from "react";
 import { Meal } from "@/types";
 import { searchMeals, getRandomMeal } from "@/lib/api";
+import { getShoppingList } from "@/lib/shoppingList";
 
 export type AppState = "idle" | "loading" | "results" | "no-results" | "error";
+
+function getMealCount() {
+  return new Set(getShoppingList().map((i) => i.mealId)).size;
+}
 
 export function useRecipeSearch() {
   const [query, setQuery] = useState("");
@@ -13,6 +18,11 @@ export function useRecipeSearch() {
   const [lastQuery, setLastQuery] = useState("");
   const [selectedMeal, setSelectedMeal] = useState<Meal | null>(null);
   const [shoppingListOpen, setShoppingListOpen] = useState(false);
+  const [shoppingListCount, setShoppingListCount] = useState(getMealCount);
+
+  const refreshShoppingListCount = useCallback(() => {
+    setShoppingListCount(getMealCount());
+  }, []);
 
   const handleSearch = useCallback(
     async (e: React.FormEvent) => {
@@ -57,6 +67,8 @@ export function useRecipeSearch() {
     setSelectedMeal,
     shoppingListOpen,
     setShoppingListOpen,
+    shoppingListCount,
+    refreshShoppingListCount,
     handleSearch,
     handleSurpriseMe,
     handleGoHome,

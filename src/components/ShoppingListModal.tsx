@@ -5,11 +5,13 @@ import { useShoppingListModal } from "@/hooks/useShoppingListModal";
 interface ShoppingListModalProps {
   open: boolean;
   onClose: () => void;
+  onShoppingListChange: () => void;
 }
 
 export default function ShoppingListModal({
   open,
   onClose,
+  onShoppingListChange,
 }: ShoppingListModalProps) {
   const {
     overlayRef,
@@ -18,7 +20,7 @@ export default function ShoppingListModal({
     handleClear,
     handleRemoveMeal,
     handleOverlayClick,
-  } = useShoppingListModal({ open, onClose });
+  } = useShoppingListModal({ open, onClose, onShoppingListChange });
 
   if (!open) return null;
 

@@ -11,6 +11,7 @@ import { MergedShoppingItem } from "@/types";
 interface UseShoppingListModalOptions {
   open: boolean;
   onClose: () => void;
+  onShoppingListChange: () => void;
 }
 
 interface UseShoppingListModalReturn {
@@ -26,6 +27,7 @@ interface UseShoppingListModalReturn {
 export function useShoppingListModal({
   open,
   onClose,
+  onShoppingListChange,
 }: UseShoppingListModalOptions): UseShoppingListModalReturn {
   const overlayRef = useRef<HTMLDivElement>(null);
   const [items, setItems] = useState<MergedShoppingItem[]>([]);
@@ -52,14 +54,13 @@ export function useShoppingListModal({
   function handleClear() {
     clearShoppingList();
     setItems([]);
-    // Notify the Navbar badge to update its count
-    window.dispatchEvent(new Event("shopping-list-updated"));
+    onShoppingListChange();
   }
 
   function handleRemoveMeal(mealId: string) {
     removeMealFromShoppingList(mealId);
     setItems(getMergedShoppingList());
-    window.dispatchEvent(new Event("shopping-list-updated"));
+    onShoppingListChange();
   }
 
   // Close only when clicking the backdrop, not the modal card itself

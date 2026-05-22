@@ -11,6 +11,7 @@ import {
 interface RecipeModalProps {
   meal: Meal | null;
   onClose: () => void;
+  onShoppingListChange: () => void;
 }
 
 function getIngredients(meal: Meal) {
@@ -28,7 +29,11 @@ function getIngredients(meal: Meal) {
   return items;
 }
 
-export default function RecipeModal({ meal, onClose }: RecipeModalProps) {
+export default function RecipeModal({
+  meal,
+  onClose,
+  onShoppingListChange,
+}: RecipeModalProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
   const [added, setAdded] = useState(false);
 
@@ -55,8 +60,7 @@ export default function RecipeModal({ meal, onClose }: RecipeModalProps) {
     if (!meal) return;
     addMealToShoppingList(meal);
     setAdded(true);
-    // Notify navbar badge
-    window.dispatchEvent(new Event("shopping-list-updated"));
+    onShoppingListChange();
   }
 
   function handleOverlayClick(e: React.MouseEvent<HTMLDivElement>) {
