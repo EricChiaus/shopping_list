@@ -57,11 +57,6 @@ export interface MealSearchResponse {
   meals: Meal[] | null;
 }
 
-export interface MealIngredient {
-  ingredient: string;
-  measure: string;
-}
-
 export interface ShoppingListItem {
   ingredient: string;
   measure: string;

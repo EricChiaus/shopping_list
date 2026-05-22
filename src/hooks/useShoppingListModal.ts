@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   getMergedShoppingList,
   clearShoppingList,
@@ -51,22 +51,28 @@ export function useShoppingListModal({
     return () => window.removeEventListener("keydown", handleKey);
   }, [onClose]);
 
-  function handleClear() {
+  const handleClear = useCallback(() => {
     clearShoppingList();
     setItems([]);
     onShoppingListChange();
-  }
+  }, [onShoppingListChange]);
 
-  function handleRemoveMeal(mealId: string) {
-    removeMealFromShoppingList(mealId);
-    setItems(getMergedShoppingList());
-    onShoppingListChange();
-  }
+  const handleRemoveMeal = useCallback(
+    (mealId: string) => {
+      removeMealFromShoppingList(mealId);
+      setItems(getMergedShoppingList());
+      onShoppingListChange();
+    },
+    [onShoppingListChange],
+  );
 
   // Close only when clicking the backdrop, not the modal card itself
-  function handleOverlayClick(e: React.MouseEvent<HTMLDivElement>) {
-    if (e.target === overlayRef.current) onClose();
-  }
+  const handleOverlayClick = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if (e.target === overlayRef.current) onClose();
+    },
+    [onClose],
+  );
 
   // Derive unique (id, name) meal pairs from merged items
   const meals = Array.from(
