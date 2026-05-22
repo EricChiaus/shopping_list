@@ -46,7 +46,8 @@ src/
 │   ├── useRecipeModal.ts        # Recipe modal logic & handlers
 │   └── useShoppingListModal.ts  # Shopping list modal logic & handlers
 ├── lib/
-│   ├── api.ts            # TheMealDB API calls + getIngredients helper
+│   ├── api.ts            # TheMealDB API calls
+│   ├── helpers.ts        # Pure utility functions (getIngredients)
 │   └── shoppingList.ts   # localStorage CRUD & ingredient merging
 └── types/
     └── index.ts          # Shared TypeScript types
