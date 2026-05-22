@@ -33,13 +33,6 @@ export default function ShoppingListModal({
             </p>
           )}
         </div>
-        <button
-          onClick={onClose}
-          className="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-colors text-gray-600"
-          aria-label="Close"
-        >
-          ✕
-        </button>
       </div>
 
       <div className="px-6 py-5 space-y-4">
@@ -82,9 +75,9 @@ export default function ShoppingListModal({
 
             {/* Ingredient list */}
             <div className="space-y-2">
-              {items.map((item, i) => (
+              {items.map((item) => (
                 <div
-                  key={i}
+                  key={item.ingredient}
                   className="flex items-center justify-between gap-3 py-2.5 px-4 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors"
                 >
                   <div className="flex items-center gap-2.5 min-w-0">

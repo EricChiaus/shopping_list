@@ -26,15 +26,6 @@ export default function RecipeModal({
 
   return (
     <Modal open onClose={onClose} maxWidth="max-w-3xl">
-      {/* Close button */}
-      <button
-        onClick={onClose}
-        className="absolute top-4 right-4 z-10 w-9 h-9 flex items-center justify-center rounded-full bg-white/90 shadow hover:bg-gray-100 transition-colors text-gray-600 hover:text-gray-900"
-        aria-label="Close"
-      >
-        ✕
-      </button>
-
       {/* Hero image */}
       <div className="relative w-full aspect-video overflow-hidden bg-gray-100">
         <Image

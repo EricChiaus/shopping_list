@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 interface ModalProps {
   open: boolean;
@@ -41,9 +41,12 @@ export default function Modal({
 
   if (!open) return null;
 
-  function handleOverlayClick(e: React.MouseEvent<HTMLDivElement>) {
-    if (e.target === overlayRef.current) onClose();
-  }
+  const handleOverlayClick = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if (e.target === overlayRef.current) onClose();
+    },
+    [onClose],
+  );
 
   return (
     <div
@@ -54,6 +57,13 @@ export default function Modal({
       <div
         className={`bg-white shadow-2xl w-full ${maxWidth} max-h-[90vh] overflow-y-auto overscroll-contain relative`}
       >
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 z-10 w-9 h-9 flex items-center justify-center rounded-full bg-white/90 shadow hover:bg-gray-100 transition-colors text-gray-600 hover:text-gray-900"
+          aria-label="Close"
+        >
+          X
+        </button>
         {children}
       </div>
     </div>
