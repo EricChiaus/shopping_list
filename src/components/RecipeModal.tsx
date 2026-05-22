@@ -75,7 +75,7 @@ export default function RecipeModal({ meal, onClose }: RecipeModalProps) {
       onClick={handleOverlayClick}
       className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6"
     >
-      <div className="bg-white rounded-3xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto relative">
+      <div className="bg-white shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto relative">
         {/* Close button */}
         <button
           onClick={onClose}
@@ -86,7 +86,7 @@ export default function RecipeModal({ meal, onClose }: RecipeModalProps) {
         </button>
 
         {/* Hero image */}
-        <div className="relative w-full aspect-video rounded-t-3xl overflow-hidden bg-gray-100">
+        <div className="relative w-full aspect-video overflow-hidden bg-gray-100">
           <Image
             src={meal.strMealThumb}
             alt={meal.strMeal}
