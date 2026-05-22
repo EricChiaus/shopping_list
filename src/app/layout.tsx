@@ -5,6 +5,15 @@ export const metadata: Metadata = {
   title: "RecipeFinder – Discover & Cook",
   description:
     "Search thousands of recipes, view ingredients, and build your shopping list",
+  keywords: [
+    "recipe search",
+    "meal finder",
+    "cooking recipes",
+    "ingredients",
+    "shopping list",
+    "dinner ideas",
+    "meal planner",
+  ],
 };
 
 export default function RootLayout({
