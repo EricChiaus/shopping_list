@@ -17,6 +17,13 @@ export default function Modal({
 }: ModalProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
 
+  const handleOverlayClick = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if (e.target === overlayRef.current) onClose();
+    },
+    [onClose],
+  );
+
   // Lock body scroll while open
   useEffect(() => {
     if (open) {
@@ -40,13 +47,6 @@ export default function Modal({
   }, [open, onClose]);
 
   if (!open) return null;
-
-  const handleOverlayClick = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      if (e.target === overlayRef.current) onClose();
-    },
-    [onClose],
-  );
 
   return (
     <div

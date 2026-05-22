@@ -13,12 +13,12 @@ export function useModalState() {
   const [shoppingListOpen, setShoppingListOpen] = useState(false);
   const [shoppingListCount, setShoppingListCount] = useState(0);
 
-  // Read localStorage only on the client to avoid SSR/hydration mismatch
-  useEffect(() => {
+  const refreshShoppingListCount = useCallback(() => {
     setShoppingListCount(getMealCount());
   }, []);
 
-  const refreshShoppingListCount = useCallback(() => {
+  // Read localStorage only on the client to avoid SSR/hydration mismatch
+  useEffect(() => {
     setShoppingListCount(getMealCount());
   }, []);
 

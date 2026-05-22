@@ -27,10 +27,19 @@ export function useShoppingListModal({
 }: UseShoppingListModalOptions): UseShoppingListModalReturn {
   const [items, setItems] = useState<MergedShoppingItem[]>([]);
 
-  // Reload items from storage each time the modal opens
-  useEffect(() => {
-    if (open) setItems(getMergedShoppingList());
-  }, [open]);
+  // Derive unique (id, name) meal pairs from merged items
+  // Use a Map to ensure uniqueness and preserve the first name encountered for each mealId
+  const meals = useMemo(
+    () =>
+      Array.from(
+        new Map(
+          items.flatMap((item) =>
+            item.mealIds.map((id, i) => [id, { id, name: item.meals[i] }]),
+          ),
+        ).values(),
+      ),
+    [items],
+  );
 
   const handleClear = useCallback(() => {
     clearShoppingList();
@@ -47,19 +56,10 @@ export function useShoppingListModal({
     [onShoppingListChange],
   );
 
-  // Derive unique (id, name) meal pairs from merged items
-  // Use a Map to ensure uniqueness and preserve the first name encountered for each mealId
-  const meals = useMemo(
-    () =>
-      Array.from(
-        new Map(
-          items.flatMap((item) =>
-            item.mealIds.map((id, i) => [id, { id, name: item.meals[i] }]),
-          ),
-        ).values(),
-      ),
-    [items],
-  );
+  // Reload items from storage each time the modal opens
+  useEffect(() => {
+    if (open) setItems(getMergedShoppingList());
+  }, [open]);
 
   return {
     items,

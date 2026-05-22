@@ -21,12 +21,6 @@ export function useRecipeModal({
 }: UseRecipeModalOptions) {
   const [added, setAdded] = useState(false);
 
-  useEffect(() => {
-    if (meal) {
-      setAdded(isMealInShoppingList(meal.idMeal));
-    }
-  }, [meal]);
-
   const ingredients = useMemo(() => (meal ? getIngredients(meal) : []), [meal]);
 
   const handleAddToShoppingList = useCallback(() => {
@@ -35,6 +29,12 @@ export function useRecipeModal({
     setAdded(true);
     onShoppingListChange();
   }, [meal, onShoppingListChange]);
+
+  useEffect(() => {
+    if (meal) {
+      setAdded(isMealInShoppingList(meal.idMeal));
+    }
+  }, [meal]);
 
   return { added, ingredients, handleAddToShoppingList };
 }
