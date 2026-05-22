@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Meal } from "@/types";
 import { searchMeals, getRandomMeal } from "@/lib/api";
 import { getShoppingList } from "@/lib/shoppingList";
@@ -18,7 +18,12 @@ export function useRecipeSearch() {
   const [lastQuery, setLastQuery] = useState("");
   const [selectedMeal, setSelectedMeal] = useState<Meal | null>(null);
   const [shoppingListOpen, setShoppingListOpen] = useState(false);
-  const [shoppingListCount, setShoppingListCount] = useState(getMealCount);
+  const [shoppingListCount, setShoppingListCount] = useState(0);
+
+  // Read localStorage only on the client to avoid SSR/hydration mismatch
+  useEffect(() => {
+    setShoppingListCount(getMealCount());
+  }, []);
 
   const refreshShoppingListCount = useCallback(() => {
     setShoppingListCount(getMealCount());
