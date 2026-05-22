@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Meal } from "@/types";
+import { getIngredients } from "@/lib/api";
 import {
   addMealToShoppingList,
   isMealInShoppingList,
@@ -12,21 +13,6 @@ interface RecipeModalProps {
   meal: Meal | null;
   onClose: () => void;
   onShoppingListChange: () => void;
-}
-
-function getIngredients(meal: Meal) {
-  const items: { ingredient: string; measure: string }[] = [];
-  for (let i = 1; i <= 20; i++) {
-    const ingredient = meal[`strIngredient${i}` as keyof Meal] as string | null;
-    const measure = meal[`strMeasure${i}` as keyof Meal] as string | null;
-    if (ingredient && ingredient.trim()) {
-      items.push({
-        ingredient: ingredient.trim(),
-        measure: (measure ?? "").trim(),
-      });
-    }
-  }
-  return items;
 }
 
 export default function RecipeModal({
