@@ -2,11 +2,12 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Meal } from "@/types";
-import { getIngredients } from "@/lib/api";
+
 import {
   addMealToShoppingList,
   isMealInShoppingList,
 } from "@/lib/shoppingList";
+import { getIngredients } from "@/lib/helpers";
 
 interface UseRecipeModalOptions {
   meal: Meal | null;

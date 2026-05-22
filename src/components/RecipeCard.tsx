@@ -14,7 +14,7 @@ export default function RecipeCard({ meal, onClick }: RecipeCardProps) {
       onClick={() => onClick(meal)}
       className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg border border-gray-100 hover:border-orange-200 transition-all duration-200 text-left w-full"
     >
-      {/* Thumbnail */}
+      {/* Thumbnail with responsive resolutions */}
       <div className="relative w-full aspect-[4/3] overflow-hidden bg-gray-100">
         <Image
           src={meal.strMealThumb}
