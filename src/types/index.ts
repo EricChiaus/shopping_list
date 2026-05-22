@@ -73,4 +73,5 @@ export interface MergedShoppingItem {
   ingredient: string;
   measure: string;
   meals: string[];
+  mealIds: string[];
 }

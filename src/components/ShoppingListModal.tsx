@@ -11,8 +11,14 @@ export default function ShoppingListModal({
   open,
   onClose,
 }: ShoppingListModalProps) {
-  const { overlayRef, items, mealNames, handleClear, handleOverlayClick } =
-    useShoppingListModal({ open, onClose });
+  const {
+    overlayRef,
+    items,
+    meals,
+    handleClear,
+    handleRemoveMeal,
+    handleOverlayClick,
+  } = useShoppingListModal({ open, onClose });
 
   if (!open) return null;
 
@@ -32,8 +38,8 @@ export default function ShoppingListModal({
             {items.length > 0 && (
               <p className="text-sm text-gray-500 mt-0.5">
                 {items.length} ingredient{items.length !== 1 ? "s" : ""}
-                {mealNames.length > 0 &&
-                  ` from ${mealNames.length} recipe${mealNames.length !== 1 ? "s" : ""}`}
+                {meals.length > 0 &&
+                  ` from ${meals.length} recipe${meals.length !== 1 ? "s" : ""}`}
               </p>
             )}
           </div>
@@ -59,18 +65,25 @@ export default function ShoppingListModal({
           ) : (
             <>
               {/* Meals included */}
-              {mealNames.length > 0 && (
+              {meals.length > 0 && (
                 <div className="bg-orange-50 rounded-xl px-4 py-3">
                   <p className="text-xs font-semibold text-orange-700 uppercase tracking-wide mb-1.5">
                     Recipes included
                   </p>
                   <div className="flex flex-wrap gap-1.5">
-                    {mealNames.map((name) => (
+                    {meals.map(({ id, name }) => (
                       <span
-                        key={name}
-                        className="px-2.5 py-1 bg-orange-100 text-orange-800 rounded-full text-xs font-medium"
+                        key={id}
+                        className="flex items-center gap-1 pl-2.5 pr-1.5 py-1 bg-orange-100 text-orange-800 rounded-full text-xs font-medium"
                       >
                         {name}
+                        <button
+                          onClick={() => handleRemoveMeal(id)}
+                          className="ml-0.5 w-4 h-4 flex items-center justify-center rounded-full hover:bg-orange-300 transition-colors"
+                          aria-label={`Remove ${name} from shopping list`}
+                        >
+                          X
+                        </button>
                       </span>
                     ))}
                   </div>

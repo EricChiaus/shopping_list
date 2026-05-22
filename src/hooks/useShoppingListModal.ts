@@ -1,7 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { getMergedShoppingList, clearShoppingList } from "@/lib/shoppingList";
+import {
+  getMergedShoppingList,
+  clearShoppingList,
+  removeMealFromShoppingList,
+} from "@/lib/shoppingList";
 import { MergedShoppingItem } from "@/types";
 
 interface UseShoppingListModalOptions {
@@ -12,9 +16,10 @@ interface UseShoppingListModalOptions {
 interface UseShoppingListModalReturn {
   overlayRef: React.RefObject<HTMLDivElement | null>;
   items: MergedShoppingItem[];
-  /** Unique meal names derived from the current item list */
-  mealNames: string[];
+  /** Unique meals (id + name) derived from the current item list */
+  meals: { id: string; name: string }[];
   handleClear: () => void;
+  handleRemoveMeal: (mealId: string) => void;
   handleOverlayClick: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
@@ -51,12 +56,32 @@ export function useShoppingListModal({
     window.dispatchEvent(new Event("shopping-list-updated"));
   }
 
+  function handleRemoveMeal(mealId: string) {
+    removeMealFromShoppingList(mealId);
+    setItems(getMergedShoppingList());
+    window.dispatchEvent(new Event("shopping-list-updated"));
+  }
+
   // Close only when clicking the backdrop, not the modal card itself
   function handleOverlayClick(e: React.MouseEvent<HTMLDivElement>) {
     if (e.target === overlayRef.current) onClose();
   }
 
-  const mealNames = Array.from(new Set(items.flatMap((i) => i.meals)));
+  // Derive unique (id, name) meal pairs from merged items
+  const meals = Array.from(
+    new Map(
+      items.flatMap((item) =>
+        item.mealIds.map((id, i) => [id, { id, name: item.meals[i] }]),
+      ),
+    ).values(),
+  );
 
-  return { overlayRef, items, mealNames, handleClear, handleOverlayClick };
+  return {
+    overlayRef,
+    items,
+    meals,
+    handleClear,
+    handleRemoveMeal,
+    handleOverlayClick,
+  };
 }

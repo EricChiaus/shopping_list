@@ -58,6 +58,12 @@ export function clearShoppingList(): void {
   localStorage.removeItem(STORAGE_KEY);
 }
 
+/** Removes all ingredients belonging to a specific meal from the shopping list. */
+export function removeMealFromShoppingList(mealId: string): void {
+  const filtered = getShoppingList().filter((item) => item.mealId !== mealId);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered));
+}
+
 /**
  * Returns the shopping list with same-named ingredients merged together.
  * When the same ingredient appears in multiple meals:
@@ -86,12 +92,14 @@ export function getMergedShoppingList(): MergedShoppingItem[] {
       // Track every meal that uses this ingredient
       if (!existing.meals.includes(item.mealName)) {
         existing.meals.push(item.mealName);
+        existing.mealIds.push(item.mealId);
       }
     } else {
       map.set(key, {
         ingredient: item.ingredient,
         measure: item.measure,
         meals: [item.mealName],
+        mealIds: [item.mealId],
       });
     }
   }
