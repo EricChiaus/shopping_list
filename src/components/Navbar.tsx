@@ -31,13 +31,6 @@ export default function Navbar({
           {/* Nav actions */}
           <div className="flex items-center gap-2 sm:gap-3">
             <button
-              onClick={onGoHome}
-              className="hidden sm:flex px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium transition-colors text-sm"
-            >
-              <span>Search</span>
-            </button>
-
-            <button
               onClick={onSurpriseMe}
               className="flex px-4 py-2 rounded-lg bg-orange-50 text-orange-600 hover:bg-orange-100 font-medium transition-colors text-sm"
             >
