@@ -1,8 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { getMergedShoppingList, clearShoppingList } from "@/lib/shoppingList";
-import { MergedShoppingItem } from "@/types";
+import { useShoppingListModal } from "@/hooks/useShoppingListModal";
 
 interface ShoppingListModalProps {
   open: boolean;
@@ -13,43 +11,10 @@ export default function ShoppingListModal({
   open,
   onClose,
 }: ShoppingListModalProps) {
-  const overlayRef = useRef<HTMLDivElement>(null);
-  const [items, setItems] = useState<MergedShoppingItem[]>([]);
-
-  useEffect(() => {
-    if (open) {
-      setItems(getMergedShoppingList());
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [open]);
-
-  useEffect(() => {
-    function handleKey(e: KeyboardEvent) {
-      if (e.key === "Escape") onClose();
-    }
-    window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
-  }, [onClose]);
-
-  function handleClear() {
-    clearShoppingList();
-    setItems([]);
-    window.dispatchEvent(new Event("shopping-list-updated"));
-  }
-
-  function handleOverlayClick(e: React.MouseEvent<HTMLDivElement>) {
-    if (e.target === overlayRef.current) onClose();
-  }
+  const { overlayRef, items, mealNames, handleClear, handleOverlayClick } =
+    useShoppingListModal({ open, onClose });
 
   if (!open) return null;
-
-  // Collect unique meal names
-  const mealNames = Array.from(new Set(items.flatMap((i) => i.meals)));
 
   return (
     <div
@@ -62,7 +27,7 @@ export default function ShoppingListModal({
         <div className="sticky top-0 bg-white rounded-t-3xl border-b border-gray-100 px-6 py-5 flex items-center justify-between">
           <div>
             <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-              <span>🛒</span> My Shopping List
+              My Shopping List
             </h2>
             {items.length > 0 && (
               <p className="text-sm text-gray-500 mt-0.5">
@@ -84,7 +49,6 @@ export default function ShoppingListModal({
         <div className="px-6 py-5 space-y-4">
           {items.length === 0 ? (
             <div className="text-center py-12">
-              <div className="text-5xl mb-4">🛒</div>
               <p className="text-gray-500 font-medium">
                 Your shopping list is empty
               </p>
