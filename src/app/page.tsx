@@ -1,8 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { Meal } from "@/types";
-import { searchMeals, getRandomMeal } from "@/lib/api";
+import { useRecipeSearch } from "@/hooks/useRecipeSearch";
 import Navbar from "@/components/Navbar";
 import SearchBar from "@/components/SearchBar";
 import SearchStatus from "@/components/SearchStatus";
@@ -10,46 +8,21 @@ import RecipeGrid from "@/components/RecipeGrid";
 import RecipeModal from "@/components/RecipeModal";
 import ShoppingListModal from "@/components/ShoppingListModal";
 
-type AppState = "idle" | "loading" | "results" | "no-results" | "error";
-
 export default function HomePage() {
-  const [query, setQuery] = useState("");
-  const [meals, setMeals] = useState<Meal[]>([]);
-  const [appState, setAppState] = useState<AppState>("idle");
-  const [selectedMeal, setSelectedMeal] = useState<Meal | null>(null);
-  const [shoppingListOpen, setShoppingListOpen] = useState(false);
-  const [lastQuery, setLastQuery] = useState("");
-
-  async function handleSearch(e: React.FormEvent) {
-    e.preventDefault();
-    const trimmed = query.trim();
-    if (!trimmed) return;
-    setLastQuery(trimmed);
-    setAppState("loading");
-    try {
-      const results = await searchMeals(trimmed);
-      setMeals(results);
-      setAppState(results.length > 0 ? "results" : "no-results");
-    } catch {
-      setAppState("error");
-    }
-  }
-
-  const handleSurpriseMe = useCallback(async () => {
-    try {
-      const meal = await getRandomMeal();
-      if (meal) setSelectedMeal(meal);
-    } catch {
-      // silently fail
-      // TODO: add error handling
-    }
-  }, []);
-
-  function handleGoHome() {
-    setAppState("idle");
-    setMeals([]);
-    setQuery("");
-  }
+  const {
+    query,
+    setQuery,
+    meals,
+    appState,
+    lastQuery,
+    selectedMeal,
+    setSelectedMeal,
+    shoppingListOpen,
+    setShoppingListOpen,
+    handleSearch,
+    handleSurpriseMe,
+    handleGoHome,
+  } = useRecipeSearch();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-amber-50">
