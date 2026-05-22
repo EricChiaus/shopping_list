@@ -16,17 +16,15 @@ export default function Navbar({
 }: NavbarProps) {
   const [itemCount, setItemCount] = useState(0);
 
-  // Refresh count when localStorage changes (e.g. after adding items)
+  // Refresh badge count whenever the shopping list is updated
   useEffect(() => {
     function updateCount() {
       const meals = new Set(getShoppingList().map((i) => i.mealId));
       setItemCount(meals.size);
     }
     updateCount();
-    window.addEventListener("storage", updateCount);
     window.addEventListener("shopping-list-updated", updateCount);
     return () => {
-      window.removeEventListener("storage", updateCount);
       window.removeEventListener("shopping-list-updated", updateCount);
     };
   }, []);
