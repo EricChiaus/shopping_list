@@ -23,7 +23,7 @@ export default function Navbar({
           {/* Logo */}
           <button
             onClick={onGoHome}
-            className="flex items-center gap-2 font-bold text-xl text-orange-600 hover:text-orange-700 transition-colors"
+            className="flex font-bold text-xl text-orange-600 hover:text-orange-700 transition-colors"
           >
             <span>RecipeFinder</span>
           </button>
@@ -32,14 +32,14 @@ export default function Navbar({
           <div className="flex items-center gap-2 sm:gap-3">
             <button
               onClick={onGoHome}
-              className="hidden sm:flex items-center gap-1.5 px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium transition-colors text-sm"
+              className="hidden sm:flex px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium transition-colors text-sm"
             >
               <span>Search</span>
             </button>
 
             <button
               onClick={onSurpriseMe}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-orange-50 text-orange-600 hover:bg-orange-100 font-medium transition-colors text-sm"
+              className="flex px-4 py-2 rounded-lg bg-orange-50 text-orange-600 hover:bg-orange-100 font-medium transition-colors text-sm"
             >
               <span className="hidden sm:inline">Surprise Me</span>
               <span className="sm:hidden">Surprise</span>
@@ -52,7 +52,7 @@ export default function Navbar({
                   ? `View My Shopping List (${itemCount} recipe${itemCount !== 1 ? "s" : ""})`
                   : "View My Shopping List"
               }
-              className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 font-medium transition-colors text-sm relative"
+              className="flex px-4 py-2 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 font-medium transition-colors text-sm relative"
             >
               <span className="hidden sm:inline">View My Shopping List</span>
               <span className="sm:hidden">List</span>

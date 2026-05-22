@@ -16,7 +16,7 @@ export default function SearchBar({
   return (
     <form onSubmit={onSubmit} className="max-w-2xl mx-auto">
       <div className="flex items-center gap-3">
-        <div className="relative flex-1">
+        <div className="flex-1">
           <label htmlFor="recipe-search" className="sr-only">
             Search recipes
           </label>
@@ -26,7 +26,7 @@ export default function SearchBar({
             value={query}
             onChange={(e) => onChange(e.target.value)}
             placeholder="Search recipes (e.g. beef, pudding, pasta…)"
-            className="w-full pl-12 pr-4 py-4 rounded-2xl border border-gray-200 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent text-gray-900 placeholder-gray-400 text-base"
+            className="w-full px-4 py-4 rounded-2xl border border-gray-200 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent text-gray-900 placeholder-gray-400 text-base"
             autoFocus
           />
         </div>

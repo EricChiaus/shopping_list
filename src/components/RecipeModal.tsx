@@ -116,7 +116,7 @@ export default function RecipeModal({
           {/* Add to shopping list */}
           <button
             onClick={handleAddToShoppingList}
-            className={`w-full py-3 px-5 rounded-xl font-semibold text-sm sm:text-base transition-all duration-200 flex items-center justify-center gap-2 ${
+            className={`w-full py-3 px-5 rounded-xl font-semibold text-sm sm:text-base transition-all duration-200 flex items-center justify-center ${
               added
                 ? "bg-emerald-50 text-emerald-700 border-2 border-emerald-300 cursor-default"
                 : "bg-emerald-600 hover:bg-emerald-700 text-white shadow-md hover:shadow-lg"
@@ -159,7 +159,7 @@ export default function RecipeModal({
             <h3 className="text-lg font-bold text-gray-900 mb-3">
               Instructions
             </h3>
-            <div className="prose prose-sm max-w-none">
+            <div>
               {meal.strInstructions
                 .split(/\r?\n/)
                 .filter((line) => line.trim())
@@ -182,7 +182,7 @@ export default function RecipeModal({
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Watch on YouTube (opens in new tab)"
-                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 font-medium text-sm transition-colors"
+                className="flex items-center px-4 py-2 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 font-medium text-sm transition-colors"
               >
                 <span>Watch on YouTube</span>
               </a>
@@ -193,7 +193,7 @@ export default function RecipeModal({
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="View Source Recipe (opens in new tab)"
-                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-100 font-medium text-sm transition-colors"
+                className="flex items-center px-4 py-2 rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-100 font-medium text-sm transition-colors"
               >
                 <span>View Source Recipe</span>
               </a>

@@ -34,7 +34,7 @@ export default function ShoppingListModal({
         {/* Header */}
         <div className="sticky top-0 bg-white border-b border-gray-100 px-6 py-5 flex items-center justify-between">
           <div>
-            <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+            <h2 className="text-xl font-bold text-gray-900">
               My Shopping List
             </h2>
             {items.length > 0 && (
