@@ -17,7 +17,11 @@ export default function SearchBar({
     <form onSubmit={onSubmit} className="max-w-2xl mx-auto">
       <div className="flex items-center gap-3">
         <div className="relative flex-1">
+          <label htmlFor="recipe-search" className="sr-only">
+            Search recipes
+          </label>
           <input
+            id="recipe-search"
             type="text"
             value={query}
             onChange={(e) => onChange(e.target.value)}
@@ -37,6 +41,7 @@ export default function SearchBar({
                 className="animate-spin h-4 w-4"
                 viewBox="0 0 24 24"
                 fill="none"
+                aria-hidden="true"
               >
                 <circle
                   className="opacity-25"

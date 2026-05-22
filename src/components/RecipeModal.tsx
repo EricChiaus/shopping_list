@@ -183,6 +183,7 @@ export default function RecipeModal({ meal, onClose }: RecipeModalProps) {
                 href={meal.strYoutube}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Watch on YouTube (opens in new tab)"
                 className="flex items-center gap-2 px-4 py-2 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 font-medium text-sm transition-colors"
               >
                 <span>Watch on YouTube</span>
@@ -193,6 +194,7 @@ export default function RecipeModal({ meal, onClose }: RecipeModalProps) {
                 href={meal.strSource}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="View Source Recipe (opens in new tab)"
                 className="flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-100 font-medium text-sm transition-colors"
               >
                 <span>View Source Recipe</span>

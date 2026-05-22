@@ -32,7 +32,7 @@ export default function Navbar({
   }, []);
 
   return (
-    <nav className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-sm">
+    <nav aria-label="Main navigation" className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -62,12 +62,13 @@ export default function Navbar({
 
             <button
               onClick={onShowShoppingList}
+              aria-label={itemCount > 0 ? `View My Shopping List (${itemCount} recipe${itemCount !== 1 ? 's' : ''})` : 'View My Shopping List'}
               className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 font-medium transition-colors text-sm relative"
             >
               <span className="hidden sm:inline">View My Shopping List</span>
               <span className="sm:hidden">List</span>
               {itemCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 bg-emerald-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                <span aria-hidden="true" className="absolute -top-1.5 -right-1.5 bg-emerald-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                   {itemCount}
                 </span>
               )}
