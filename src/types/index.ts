@@ -10,7 +10,6 @@ export interface Meal {
   strTags: string | null;
   // Ingredients and measures (1-20)
   // TheMealDB API returns ingredients and measures in a flat structure with numbered keys
-  // TODO: find a way to normalize this into an array of { ingredient, measure } pairs
   strIngredient1: string | null;
   strIngredient2: string | null;
   strIngredient3: string | null;
