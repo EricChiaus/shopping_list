@@ -48,11 +48,17 @@ export function useRecipeSearch() {
   );
 
   const handleSurpriseMe = useCallback(async () => {
+    setAppState("loading");
     try {
       const meal = await getRandomMeal();
-      if (meal) setSelectedMeal(meal);
+      if (meal) {
+        setSelectedMeal(meal);
+        setAppState("idle");
+      } else {
+        setAppState("error");
+      }
     } catch {
-      // silently fail
+      setAppState("error");
     }
   }, []);
 
