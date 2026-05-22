@@ -4,7 +4,7 @@ interface SearchBarProps {
   query: string;
   loading: boolean;
   onChange: (value: string) => void;
-  onSubmit: (e: React.FormEvent) => void;
+  onSubmit: (e: React.SyntheticEvent<HTMLFormElement>) => void;
 }
 
 export default function SearchBar({

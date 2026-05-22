@@ -30,7 +30,7 @@ export function useRecipeSearch() {
   }, []);
 
   const handleSearch = useCallback(
-    async (e: React.FormEvent) => {
+    async (e: React.SyntheticEvent<HTMLFormElement>) => {
       e.preventDefault();
       const trimmed = query.trim();
       if (!trimmed) return;
