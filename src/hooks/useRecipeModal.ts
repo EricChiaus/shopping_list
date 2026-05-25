@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Meal } from "@/types";
 
 import {
@@ -19,22 +19,25 @@ export function useRecipeModal({
   meal,
   onShoppingListChange,
 }: UseRecipeModalOptions) {
-  const [added, setAdded] = useState(false);
+  // Tracks which meal was added in this session so the button updates without an effect
+  const [addedMealId, setAddedMealId] = useState<string | null>(null);
+
+  // True if added in this session OR already persisted in localStorage
+  const added = useMemo(
+    () =>
+      meal != null &&
+      (addedMealId === meal.idMeal || isMealInShoppingList(meal.idMeal)),
+    [meal, addedMealId],
+  );
 
   const ingredients = useMemo(() => (meal ? getIngredients(meal) : []), [meal]);
 
   const handleAddToShoppingList = useCallback(() => {
     if (!meal) return;
     addMealToShoppingList(meal);
-    setAdded(true);
+    setAddedMealId(meal.idMeal);
     onShoppingListChange();
   }, [meal, onShoppingListChange]);
-
-  useEffect(() => {
-    if (meal) {
-      setAdded(isMealInShoppingList(meal.idMeal));
-    }
-  }, [meal]);
 
   return { added, ingredients, handleAddToShoppingList };
 }

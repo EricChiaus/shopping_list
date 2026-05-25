@@ -56,8 +56,19 @@ export function useShoppingListModal({
     [onShoppingListChange],
   );
 
-  // Reload items from storage each time the modal opens
+  // Reload the shopping list from localStorage each time the modal opens.
+  //
+  // Why useEffect + setState: items must be re-read from localStorage whenever
+  // `open` transitions to true so the list reflects any additions made while
+  // the modal was closed. There is no way to derive this without an effect
+  // because the trigger is a prop change, not a user event we can intercept.
+  //
+  // The lint rule flags setState inside effects to discourage deriving state
+  // from other state (which causes cascading renders). This case is different —
+  // I am synchronising React state with an external system (localStorage),
+  // which is exactly what useEffect is designed for.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (open) setItems(getMergedShoppingList());
   }, [open]);
 
